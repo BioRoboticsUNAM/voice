@@ -13,8 +13,8 @@ voice requires NCurses, EST, Festival, Speech-tools, PortAudio, LibSndFile
 
 for installing, run:
 
-# apt-get install libestools2.1 libestools2.1-dev libncurses5-dev festival festival-dev speech-tools
-# apt-get install libportaudio2 portaudio19-dev libsndfile1-dev
+    # apt-get install libestools2.1 libestools2.1-dev libncurses5-dev festival festival-dev speech-tools
+    # apt-get install libportaudio2 portaudio19-dev libsndfile1-dev
 
 PortAudio may refuse to install. In those cases download and build source. Install in /usr
 If PortAudio is installed in another location different from /usr/lib, symlinks may be required
