@@ -4,6 +4,8 @@
 #include <boost/bind.hpp>
 #include <boost/function.hpp>
 
+using voice::SoundEngine;
+
 // Only 2 channels will be accepted
 #define    MAX_CHANNELS    2
 

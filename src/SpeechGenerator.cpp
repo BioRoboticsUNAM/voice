@@ -6,6 +6,12 @@
 // uRobotics
 #include <uRobotics/Exception.h>
 
+using voice::SpeechTask;
+using voice::SpeechTaskPtr;
+using voice::SpeechGenerator;
+using Robotics::Utilities::ProducerConsumer;
+
+
 ProducerConsumer<SpeechTaskPtr> SpeechGenerator::speechTasks;
 boost::thread* SpeechGenerator::speechThread = 
 	new boost::thread(boost::bind(&SpeechGenerator::speechThreadTask));

@@ -9,6 +9,8 @@
 #include <boost/filesystem.hpp>
 #include <boost/system/error_code.hpp>
 
+using voice::Misc;
+
 Misc::Misc(){}
 
 Misc::Misc(const Misc&){}
