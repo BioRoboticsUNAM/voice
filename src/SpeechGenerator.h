@@ -21,6 +21,8 @@ namespace voice{
 	public:
 		SpeechGenerator(void);
 		virtual ~SpeechGenerator(void);
+		bool read(const std::string& filePath) const;
+		void readAsync(const std::string& filePath) const;
 		bool speak(const std::string& textToSynth) const;
 		void speakAsync(const std::string& textToSynth) const;
 
@@ -28,6 +30,7 @@ namespace voice{
 		static Robotics::Utilities::ProducerConsumer<SpeechTaskPtr> speechTasks;
 		static boost::thread* speechThread;
 		static void speechThreadTask();
+		static void readAllText(const std::string& filePath, std::string& text);
 		SpeechGenerator(const SpeechGenerator&);
 	};
 

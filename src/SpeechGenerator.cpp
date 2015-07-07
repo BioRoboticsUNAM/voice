@@ -1,4 +1,6 @@
 #include "SpeechGenerator.h"
+#include <fstream>
+#include <streambuf>
 
 // Festival
 #include <festival.h>
@@ -22,6 +24,18 @@ SpeechGenerator::SpeechGenerator(void){
 SpeechGenerator::SpeechGenerator(const SpeechGenerator&){}
 
 SpeechGenerator::~SpeechGenerator(void){}
+
+bool SpeechGenerator::read(const std::string& filePath) const{
+	std::string tts;
+	SpeechGenerator::readAllText(filePath, tts);
+	return SpeechGenerator::speak(tts);
+}
+
+void SpeechGenerator::readAsync(const std::string& filePath) const{
+	std::string tts;
+	SpeechGenerator::readAllText(filePath, tts);
+	SpeechGenerator::speakAsync(tts);
+}
 
 bool SpeechGenerator::speak(const std::string& tts) const{
 	SpeechTaskPtr task(new SpeechTask(tts));
@@ -57,4 +71,24 @@ void SpeechGenerator::speechThreadTask(){
 
 		task->signal();
 	}
+}
+
+void SpeechGenerator::readAllText(const std::string& filePath, std::string& text){
+
+	try{
+		std::ifstream fs(filePath.c_str());
+
+		fs.seekg(0, std::ios::end);   
+		text.reserve(fs.tellg());
+		fs.seekg(0, std::ios::beg);
+
+		text.assign(
+			(std::istreambuf_iterator<char>(fs)),
+			std::istreambuf_iterator<char>()
+		);
+	}
+	catch( const std::exception& ex ){
+		std::cerr << "Error reading file " << filePath << " : " << ex.what() << std::endl;
+	}
+	catch( ... ){ std::cerr << "Error reading file " << filePath << std::endl; }
 }
