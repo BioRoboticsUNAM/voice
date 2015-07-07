@@ -24,6 +24,8 @@
 // Local command executers used to execute commands received from blackboard
 #include "command_executers/Say.h"
 #include "command_executers/Read.h"
+#include "command_executers/ASay.h"
+#include "command_executers/ARead.h"
 // #include "PlayCommandExecuter.h"
 
 using voice::SoundEngine;
@@ -44,9 +46,9 @@ int main(int argc, char** argv){
 
 	// Setup command executers
 	cmdMan.getCommandExecuters().add(new voice::command_executers::Say(speechGenerator));
-	cmdMan.getCommandExecuters().add(new voice::command_executers::Say(speechGenerator));
+	cmdMan.getCommandExecuters().add(new voice::command_executers::ASay(speechGenerator));
 	cmdMan.getCommandExecuters().add(new voice::command_executers::Read(speechGenerator));
-	cmdMan.getCommandExecuters().add(new voice::command_executers::Read(speechGenerator));
+	cmdMan.getCommandExecuters().add(new voice::command_executers::ARead(speechGenerator));
 	// cmdMan.getCommandExecuters().add(new PlayCommandExecuter());
 
 	// Start engine
