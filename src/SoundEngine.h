@@ -11,23 +11,24 @@
 
 #include <uRobotics/Exception.h>
 
-class PlayJob;
+namespace voice{
+	class PlayJob;
 
-class SoundEngine{
-private:
-	PaStreamParameters *out;
-	boost::mutex playLock;
+	class SoundEngine{
+	private:
+		PaStreamParameters *out;
+		boost::mutex playLock;
 
-	SoundEngine(const SoundEngine& other);
-	void initialize();
+		SoundEngine(const SoundEngine& other);
+		void initialize();
 
-public:
-	SoundEngine();
-	virtual ~SoundEngine();
+	public:
+		SoundEngine();
+		virtual ~SoundEngine();
 
-	bool initialized() const;
-	bool tryPlayFile(const std::string& filePath);
-	bool tryPlayFile(const std::string& filePath, Robotics::Exception& ex);
-};
-
+		bool initialized() const;
+		bool tryPlayFile(const std::string& filePath);
+		bool tryPlayFile(const std::string& filePath, Robotics::Exception& ex);
+	};
+}
 #endif // __SOUND_ENGINE_H__

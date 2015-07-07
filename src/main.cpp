@@ -22,9 +22,14 @@
 #include <uRobotics/Exception.h>
 
 // Local command executers used to execute commands received from blackboard
-#include "SayCommandExecuter.h"
-#include "ReadCommandExecuter.h"
+#include "command_executers/Say.h"
+#include "command_executers/ASay.h"
+#include "command_executers/Read.h"
+#include "command_executers/ARead.h"
 // #include "PlayCommandExecuter.h"
+
+using voice::SoundEngine;
+using voice::SpeechGenerator;
 
 void setupAudio(SpeechGenerator*& speechGenerator, SoundEngine*& soundEngine);
 
@@ -40,9 +45,16 @@ int main(int argc, char** argv){
 	setupAudio(speechGenerator, soundEngine);
 
 	// Setup command executers
-	cmdMan.getCommandExecuters().add(new SayCommandExecuter(speechGenerator));
-	cmdMan.getCommandExecuters().add(new ReadCommandExecuter(speechGenerator));
+	cmdMan.getCommandExecuters().add(new voice::command_executers::Say(speechGenerator));
+	cmdMan.getCommandExecuters().add(new voice::command_executers::ASay(speechGenerator));
+	cmdMan.getCommandExecuters().add(new voice::command_executers::Read(speechGenerator));
+	cmdMan.getCommandExecuters().add(new voice::command_executers::ARead(speechGenerator));
 	// cmdMan.getCommandExecuters().add(new PlayCommandExecuter());
+	// Setup command executers (aliases)
+	cmdMan.getCommandExecuters().add(new voice::command_executers::Say(speechGenerator, "spg_say"));
+	cmdMan.getCommandExecuters().add(new voice::command_executers::ASay(speechGenerator, "spg_asay"));
+	cmdMan.getCommandExecuters().add(new voice::command_executers::Read(speechGenerator, "spg_read"));
+	cmdMan.getCommandExecuters().add(new voice::command_executers::ARead(speechGenerator, "spg_aread"));
 
 	// Start engine
 	std::cout << "Starting SP-GEN in  port" << cnnMan.getPort() << std::endl;

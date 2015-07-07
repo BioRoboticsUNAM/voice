@@ -1,4 +1,5 @@
 #include "SpeechTask.h"
+using voice::SpeechTask;
 
 SpeechTask::SpeechTask(const std::string& textToSynth) 
 : syncSem(0), tts(textToSynth), complete(false){}

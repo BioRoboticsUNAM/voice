@@ -15,21 +15,25 @@
 // uRobotics
 #include <uRobotics/utilities/ProducerConsumer.h>
 
-using namespace Robotics::Utilities;
+namespace voice{
+	class SpeechGenerator
+	{
+	public:
+		SpeechGenerator(void);
+		virtual ~SpeechGenerator(void);
+		bool read(const std::string& filePath) const;
+		void readAsync(const std::string& filePath) const;
+		bool speak(const std::string& textToSynth) const;
+		void speakAsync(const std::string& textToSynth) const;
 
-class SpeechGenerator
-{
-public:
-	SpeechGenerator(void);
-	virtual ~SpeechGenerator(void);
-	bool speak(const std::string& textToSynth) const;
-	void speakAsync(const std::string& textToSynth) const;
+	private:
+		static Robotics::Utilities::ProducerConsumer<SpeechTaskPtr> speechTasks;
+		static boost::thread* speechThread;
+		static void speechThreadTask();
+		static void readAllText(const std::string& filePath, std::string& text);
+		SpeechGenerator(const SpeechGenerator&);
+	};
 
-private:
-	static ProducerConsumer<SpeechTaskPtr> speechTasks;
-	static boost::thread* speechThread;
-	static void speechThreadTask();
-	SpeechGenerator(const SpeechGenerator&);
-};
+}
 
 #endif // __SPEECH_GENERATOR_H__
